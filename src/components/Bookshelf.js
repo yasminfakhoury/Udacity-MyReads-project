@@ -9,8 +9,6 @@ export default class Bookshelf extends React.Component{
     }
 
     render() {
-        console.log(this.props.books);
-
         // filters the array of shelved books to determine whether they belong on the shelf category
         // that was passed in, then renders an instance of <Book /> for each object in the new arra
         return (

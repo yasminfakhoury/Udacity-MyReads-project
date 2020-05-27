@@ -4,26 +4,25 @@ import * as BooksAPI from '../BooksAPI'
 export default class Book extends React.Component{
 
     setBookshelf = (event) => {
-        console.log(this.state.shelf)
+        console.log(event.target.value)
         // when the shelf option for the book changes, we assign its new shelf in the database
-        // and then change the state of the book component
-        BooksAPI.update(this.props.book, event.target.value)
-            .then(this.setState({ shelf: event.target.value }))
-            .then(console.log('now shelf is ' + this.state.shelf))
-            .then(this.props.switchBook(this.props.book, event.target.value));
+        // // and then change the state of the book component
+        // BooksAPI.update(this.props.book, event.target.value)
+        //     .then(this.setState({ shelf: event.target.value }))
+        //     .then(console.log('now shelf is ' + this.state.shelf))
+        //     .then(this.props.switchBook(this.props.book, event.target.value));
 
-        console.log(this.state.shelf + ' vs. ' + event.target.value);
 
         // update array of shelved books in App.js with the current book and its selected shelf
-        //this.props.switchBook(this.props.book, event.target.value);
+        this.props.switchBook(this.props.book, event.target.value);
         //this.props.switchBook(this.props.book, this.state.shelf);
 
     }
 
     // get correct shelf information for each book when they are first rendered on the search page
-    componentDidMount = () => {    
-        BooksAPI.get(this.props.book.id).then(res => this.setState({shelf: res.shelf}));
-    }
+    // componentDidMount = () => {    
+    //     BooksAPI.get(this.props.book.id).then(res => this.setState({shelf: res.shelf}));
+    // }
 
     render() {
         // determine whether the current book has a cover image. If so, set the URL here to be 

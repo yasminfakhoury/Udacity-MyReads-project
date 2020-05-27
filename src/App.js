@@ -21,18 +21,33 @@ export default class BooksApp extends React.Component {
   // retreive all of the currently shelved books at start of application
   componentDidMount = () => {
     BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks })).then(() => console.log(this.state.books))
+    //BooksAPI.getAll().then(newBooks => this.setState({books: newBooks})
+    //then(BooksAPI.getAll()).then(newBooks => this.setState({books: newBooks}
   }
 
   // update the list of books to be rendered on this shelf
   handleMoveBook = (newBook, shelf) => {
-    BooksAPI.update(newBook, shelf)
-      .then(BooksAPI.getAll())
-      .then(newBooks => this.setState({ books: newBooks }));
+    //BooksAPI.update(newBook, shelf);//.then(BooksAPI.getAll().then(newBooks => this.setState({books: newBooks}))).then(console.log("We waitng bois"));
+
+    BooksAPI.update(newBook, shelf).then(newbooks => console.log(newBooks)).then(BooksAPI.getAll().then(newBooks => console.log(newBooks)));
+    //BooksAPI.update(new)
+    // this.state.books.find(book => book.id === newBook.id);
+    // this.setState(newArray => {books: newArray});
+
+
+    //BooksAPI.update(newBook,shelf).then(newBooks => console.log(newBooks)).then().then();
+
+    //BooksAPI.update(newBook, shelf).then(BooksAPI.getAll()).setState({books: newBooks});
+      //.then(newBooks => console.log(newBooks));
+        //this.setState({ books: newBooks })).then(console.log(this.state.books));
     //this.loadShelves();
   }
 
   // render 2 routes/pages, one for the home page and one for the search page
   render() {
+
+    console.log("App render");
+    console.log(this.state.books);
     return (
       <div className="app">
 
