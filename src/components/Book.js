@@ -1,28 +1,20 @@
 import React from 'react';
-import * as BooksAPI from '../BooksAPI'
+import * as BooksAPI from '../BooksAPI';
 
 export default class Book extends React.Component{
 
     setBookshelf = (event) => {
-        console.log(event.target.value)
-        // when the shelf option for the book changes, we assign its new shelf in the database
-        // // and then change the state of the book component
-        // BooksAPI.update(this.props.book, event.target.value)
-        //     .then(this.setState({ shelf: event.target.value }))
-        //     .then(console.log('now shelf is ' + this.state.shelf))
+        event.preventDefault();
+        // when the shelf option for the book changes, we update it to its new shelf in the database,
+        // then update the shelved books array in App.js
+        //BooksAPI.update(this.props.book, event.target.value)
         //     .then(this.props.switchBook(this.props.book, event.target.value));
 
 
         // update array of shelved books in App.js with the current book and its selected shelf
         this.props.switchBook(this.props.book, event.target.value);
-        //this.props.switchBook(this.props.book, this.state.shelf);
 
     }
-
-    // get correct shelf information for each book when they are first rendered on the search page
-    // componentDidMount = () => {    
-    //     BooksAPI.get(this.props.book.id).then(res => this.setState({shelf: res.shelf}));
-    // }
 
     render() {
         // determine whether the current book has a cover image. If so, set the URL here to be 
@@ -33,7 +25,11 @@ export default class Book extends React.Component{
         // the defauly value of the select form is the book's current shelf. When a new shelf option
         // is selected, the book's shelf state is changed and in turn the initially selected value
         // in the menu
+
+        console.log(this.props.book.shelf);
+
         return(
+
             <div className="book">
                 <div className="book-top">
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookCoverURL})` }}></div>

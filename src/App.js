@@ -13,34 +13,24 @@ export default class BooksApp extends React.Component {
     books: []
   };
 
-  // render all 3 shelves by changing the state of the shelved books
-  // loadShelves = () => {
-  //   BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
-  // }
+  loadShelves = () => {
+    BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
+  }
 
   // retreive all of the currently shelved books at start of application
   componentDidMount = () => {
-    BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks })).then(() => console.log(this.state.books))
-    //BooksAPI.getAll().then(newBooks => this.setState({books: newBooks})
-    //then(BooksAPI.getAll()).then(newBooks => this.setState({books: newBooks}
+    //BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
+    this.loadShelves();
   }
 
   // update the list of books to be rendered on this shelf
-  handleMoveBook = (newBook, shelf) => {
-    //BooksAPI.update(newBook, shelf);//.then(BooksAPI.getAll().then(newBooks => this.setState({books: newBooks}))).then(console.log("We waitng bois"));
+  handleMoveBook = async (newBook, shelf) => {
+    // get the updated API info, and go through each of the object's arrays
+    // BooksAPI.getAll()
+    //     .then(newBooks => this.setState({ books: newBooks }));
+    await BooksAPI.update(newBook, shelf);
+    await this.loadShelves();
 
-    BooksAPI.update(newBook, shelf).then(newbooks => console.log(newBooks)).then(BooksAPI.getAll().then(newBooks => console.log(newBooks)));
-    //BooksAPI.update(new)
-    // this.state.books.find(book => book.id === newBook.id);
-    // this.setState(newArray => {books: newArray});
-
-
-    //BooksAPI.update(newBook,shelf).then(newBooks => console.log(newBooks)).then().then();
-
-    //BooksAPI.update(newBook, shelf).then(BooksAPI.getAll()).setState({books: newBooks});
-      //.then(newBooks => console.log(newBooks));
-        //this.setState({ books: newBooks })).then(console.log(this.state.books));
-    //this.loadShelves();
   }
 
   // render 2 routes/pages, one for the home page and one for the search page
