@@ -14,12 +14,12 @@ export default class Search extends React.Component{
     handleChange = (event) => {
         event.preventDefault();
         event.target.value === ''
-            ? this.setState({ foundbooks: []})
+            ? this.setState({ foundbooks: [] })
             : BooksAPI.search(event.target.value).then(res => {
                 res.error ? 
                     this.setState({foundBooks: []}) : 
                     this.setState({ foundBooks: res });
-            });  
+            })
     }
 
     render() {

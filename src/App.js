@@ -13,24 +13,18 @@ export default class BooksApp extends React.Component {
     books: []
   };
 
-  loadShelves = () => {
-    BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
-  }
+   // update the list of books to be rendered on this shelf
+  loadShelves = () => BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
+  
 
   // retreive all of the currently shelved books at start of application
-  componentDidMount = () => {
-    //BooksAPI.getAll().then(newBooks => this.setState({ books: newBooks }));
-    this.loadShelves();
-  }
+  componentDidMount = () => this.loadShelves();
+  
 
-  // update the list of books to be rendered on this shelf
+  // update the book's info in the API, then re-render the bookshelves
   handleMoveBook = async (newBook, shelf) => {
-    // get the updated API info, and go through each of the object's arrays
-    // BooksAPI.getAll()
-    //     .then(newBooks => this.setState({ books: newBooks }));
     await BooksAPI.update(newBook, shelf);
     await this.loadShelves();
-
   }
 
   // render 2 routes/pages, one for the home page and one for the search page
