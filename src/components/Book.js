@@ -3,23 +3,30 @@ import * as BooksAPI from '../BooksAPI';
 
 export default class Book extends React.Component{
 
+    // the shelf that the book is currently on
     state = {
         shelf: ''
     }
 
+    // upon being rendered, the select menu of each book will reflect the shelf it was 
+    // assigned to originally
     componentDidMount = async () => this.findShelf();
 
-    findShelf = async () => {
+    // since the search results do not have a "shelf" property, get the individual book's
+    // shelf using BooksAPI.get(). Once that promise is complete, set the book's shelf 
+    // set the shelf accordingly
+    findShelf = async() => {
         let currentBook = await BooksAPI.get(this.props.book.id);
         await this.setState({shelf: currentBook.shelf})
     }
 
-    setBookshelf =  (event) => {
+    // when the user selects a new shelf from the book's select menu, send the info back
+    // to the handleMoveBook function in App.js so that the bookshelves can be re-rendered
+    setBookshelf = (event) => {
          event.preventDefault();
 
         this.findShelf();
         
-        // update array of shelved books in App.js with the current book and its selected shelf
         this.props.switchBook(this.props.book, event.target.value);
     }
 

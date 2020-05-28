@@ -6,11 +6,14 @@ import SearchResults from './SearchResults';
 // where our search form lives
 export default class Search extends React.Component{
 
+    // books returned by the search query
     state = {
         foundBooks: [],
     };
 
-    // 
+    // whenever the search input changes, we make another search() call to the BooksAPI
+    // and update the list of found books stored in our state. If the input is empty,
+    // then the array will be set to empty by default
     handleChange = (event) => {
         event.preventDefault();
         event.target.value === ''
