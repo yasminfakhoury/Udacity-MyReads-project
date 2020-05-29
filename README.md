@@ -1,6 +1,10 @@
 # MyReads Project
+MyReads is an app that allows the user to search for books from a database by subject and sort selected books into shevles based on which books they are currently reading, want to read, or have already read
 
-## 
+## Installation instructions
+Upon cloning the project, all that is necessary is that you run `npm install` and `npm start` to get the application running
+
+## File Structure
 ```bash
 ├── CONTRIBUTING.md
 ├── README.md - This file.
