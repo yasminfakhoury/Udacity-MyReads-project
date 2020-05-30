@@ -30,8 +30,6 @@ export default class BooksApp extends React.Component {
   // render 2 routes/pages, one for the home page and one for the search page
   render() {
 
-    console.log("App render");
-    console.log(this.state.books);
     return (
       <div className="app">
 
