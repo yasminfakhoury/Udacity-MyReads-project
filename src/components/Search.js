@@ -5,21 +5,11 @@ import SearchResults from './SearchResults';
 
 // where our search form lives
 export default class Search extends React.Component{
-    // allows us to make sure that the state isn't being changed after <Search /> is unmounted
-    _isMounted = false;
 
     // books returned by the search query
     state = {
         foundBooks: [],
     };
-
-    componentDidMount = () => {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount = () => {
-        this._isMounted = false;
-    }
 
     // whenever the search input changes, we make another search() call to the BooksAPI
     // and update the list of found books stored in our state. If the input is empty,
@@ -27,13 +17,16 @@ export default class Search extends React.Component{
     // The state is only updated if the component is confirmed to be mounted
     handleChange = (event) => {
         event.preventDefault();
-        event.target.value === '' && this._isMounted === true
-            ? this.setState({ foundbooks: [] })
-            : BooksAPI.search(event.target.value).then(res => {
-                res.error ? 
-                    this.setState({foundBooks: []}) : 
-                    this.setState({ foundBooks: res });
-            })
+        // if there is any content in the search bar, then we will set the query to ba passed to
+        // the API call equal to what was passed in. Otherwise, we will just set it to a single space ' '
+        const query = event.target.value === '' ? ' ' : event.target.value;
+        // set the state of foundBooks to whatever was returned from the search. If there were no results,
+        // set foundBooks back to an empty array so that nothing gets rendered
+        BooksAPI.search(query).then(res => {
+                    res.error ? 
+                        this.setState({ foundBooks: [] }) : 
+                        this.setState({ foundBooks: res });
+                });
     }
 
     render() {
@@ -56,7 +49,6 @@ export default class Search extends React.Component{
                     </div>
                     
                 </div>
-                {console.log(this.state.foundbooks)}
                 <SearchResults books={this.state.foundBooks} moveBook={this.props.moveBook}/>
             </div>
         );
